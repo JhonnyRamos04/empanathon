@@ -1,40 +1,72 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
+
+interface Student {
+  firstName: string
+  lastName: string
+  cedula: string
+}
 
 export function RegistrationSection() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    team: "",
-    experience: "",
-    motivation: "",
+    teamName: "",
+    carrera: "",
+    semestre: "",
+    format: "with-ai",
+    students: [
+      { firstName: "", lastName: "", cedula: "" },
+      { firstName: "", lastName: "", cedula: "" },
+      { firstName: "", lastName: "", cedula: "" },
+      { firstName: "", lastName: "", cedula: "" },
+    ],
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const filledStudents = formData.students.filter((s) => s.firstName && s.lastName && s.cedula)
+    if (filledStudents.length < 3) {
+      alert("Por favor, completa al menos 3 estudiantes.")
+      return
+    }
+    if (!formData.teamName || !formData.carrera || !formData.semestre) {
+      alert("Por favor, completa todos los campos del equipo.")
+      return
+    }
     console.log("Form submitted:", formData)
     alert("¡Gracias por inscribirte! Te contactaremos pronto.")
     setFormData({
-      name: "",
-      email: "",
-      team: "",
-      experience: "",
-      motivation: "",
+      teamName: "",
+      carrera: "",
+      semestre: "",
+      format: "with-ai",
+      students: [
+        { firstName: "", lastName: "", cedula: "" },
+        { firstName: "", lastName: "", cedula: "" },
+        { firstName: "", lastName: "", cedula: "" },
+        { firstName: "", lastName: "", cedula: "" },
+      ],
     })
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleStudentChange = (index: number, field: keyof Student, value: string) => {
+    const newStudents = [...formData.students]
+    newStudents[index][field] = value
+    setFormData({
+      ...formData,
+      students: newStudents,
     })
   }
 
@@ -51,98 +83,180 @@ export function RegistrationSection() {
             &gt; Inscripción_
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
-            Completa el formulario y asegura tu lugar en la hackathon
+            Completa el formulario con tu equipo de 3-4 integrantes. Todos los datos son requeridos.
           </p>
         </div>
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <Card className="pixel-corners border-2 border-primary/40 bg-card/90 backdrop-blur shadow-[0_0_40px_rgba(168,85,247,0.2)]">
             <CardHeader className="bg-gradient-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
               <CardTitle className="text-xl md:text-2xl text-card-foreground uppercase tracking-wide">
-                &gt; Formulario_
+                &gt; Formulario de Inscripción_
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Equipos de 3-4 personas. Todos los niveles son bienvenidos.
+                Ingresa los datos del equipo y de al menos 3 integrantes.
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-card-foreground font-bold uppercase text-xs tracking-wider">
-                    Nombre Completo *
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="Juan Pérez"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
-                  />
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Team Information */}
+                <div className="space-y-4 pb-6 border-b-2 border-border/30">
+                  <h3 className="text-lg font-bold text-primary uppercase tracking-wider">
+                    &gt; Información del Equipo_
+                  </h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="teamName"
+                        className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                      >
+                        Nombre del Equipo *
+                      </Label>
+                      <Input
+                        id="teamName"
+                        name="teamName"
+                        placeholder="Los Innovadores"
+                        value={formData.teamName}
+                        onChange={handleTeamChange}
+                        required
+                        className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="format"
+                        className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                      >
+                        Formato Preferido *
+                      </Label>
+                      <select
+                        id="format"
+                        name="format"
+                        value={formData.format}
+                        onChange={handleTeamChange}
+                        required
+                        className="w-full border-2 border-border bg-background/50 text-foreground px-4 py-2 rounded-sm focus:border-primary transition-colors focus:outline-none focus:ring-0 cursor-pointer pixel-corners"
+                      >
+                        <option value="with-ai">Desarrollo con IA (VibeConding)</option>
+                        <option value="without-ai">Desarrollo sin IA (SaaS Clásico)</option>
+                        <option value="gamejam">GameJam</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="carrera"
+                        className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                      >
+                        Carrera *
+                      </Label>
+                      <Input
+                        id="carrera"
+                        name="carrera"
+                        placeholder="Ingeniería en Informática"
+                        value={formData.carrera}
+                        onChange={handleTeamChange}
+                        required
+                        className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="semestre"
+                        className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                      >
+                        Semestre *
+                      </Label>
+                      <select
+                        id="semestre"
+                        name="semestre"
+                        value={formData.semestre}
+                        onChange={handleTeamChange}
+                        required
+                        className="w-full border-2 border-border bg-background/50 text-foreground px-4 py-2 rounded-sm focus:border-primary transition-colors focus:outline-none focus:ring-0 cursor-pointer pixel-corners"
+                      >
+                        <option value="">Selecciona un semestre</option>
+                        <option value="1">1er Semestre</option>
+                        <option value="2">2do Semestre</option>
+                        <option value="3">3er Semestre</option>
+                        <option value="4">4to Semestre</option>
+                        <option value="5">5to Semestre</option>
+                        <option value="6">6to Semestre</option>
+                        <option value="7">7mo Semestre</option>
+                        <option value="8">8vo Semestre</option>
+                        <option value="9">9no Semestre</option>
+                        <option value="10">10mo Semestre</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-card-foreground font-bold uppercase text-xs tracking-wider">
-                    Email *
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="juan@ejemplo.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
-                  />
+
+                {/* Students Information */}
+                <div className="space-y-6">
+                  <h3 className="text-lg font-bold text-primary uppercase tracking-wider">
+                    &gt; Integrantes del Equipo (Mínimo 3)_
+                  </h3>
+                  <div className="space-y-6">
+                    {formData.students.map((student, index) => (
+                      <div key={index} className="p-4 border-2 border-border/40 bg-background/30 rounded-sm space-y-4">
+                        <h4 className="text-sm font-bold text-secondary uppercase tracking-wider">
+                          &gt; Integrante {index + 1} {index < 3 ? "*" : "(Opcional)"}
+                        </h4>
+                        <div className="grid gap-3 md:grid-cols-3">
+                          <div className="space-y-2">
+                            <Label
+                              htmlFor={`firstName-${index}`}
+                              className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                            >
+                              Nombre {index < 3 ? "*" : ""}
+                            </Label>
+                            <Input
+                              id={`firstName-${index}`}
+                              placeholder="Juan"
+                              value={student.firstName}
+                              onChange={(e) => handleStudentChange(index, "firstName", e.target.value)}
+                              required={index < 3}
+                              className="border-2 border-border bg-background/50 text-foreground focus:border-secondary transition-colors"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label
+                              htmlFor={`lastName-${index}`}
+                              className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                            >
+                              Apellido {index < 3 ? "*" : ""}
+                            </Label>
+                            <Input
+                              id={`lastName-${index}`}
+                              placeholder="Pérez"
+                              value={student.lastName}
+                              onChange={(e) => handleStudentChange(index, "lastName", e.target.value)}
+                              required={index < 3}
+                              className="border-2 border-border bg-background/50 text-foreground focus:border-secondary transition-colors"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label
+                              htmlFor={`cedula-${index}`}
+                              className="text-card-foreground font-bold uppercase text-xs tracking-wider"
+                            >
+                              Cédula {index < 3 ? "*" : ""}
+                            </Label>
+                            <Input
+                              id={`cedula-${index}`}
+                              placeholder="12345678"
+                              value={student.cedula}
+                              onChange={(e) => handleStudentChange(index, "cedula", e.target.value)}
+                              required={index < 3}
+                              className="border-2 border-border bg-background/50 text-foreground focus:border-secondary transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="team" className="text-card-foreground font-bold uppercase text-xs tracking-wider">
-                    Nombre del Equipo (opcional)
-                  </Label>
-                  <Input
-                    id="team"
-                    name="team"
-                    placeholder="Los Innovadores"
-                    value={formData.team}
-                    onChange={handleChange}
-                    className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="experience"
-                    className="text-card-foreground font-bold uppercase text-xs tracking-wider"
-                  >
-                    Nivel de Experiencia *
-                  </Label>
-                  <Input
-                    id="experience"
-                    name="experience"
-                    placeholder="Principiante, Intermedio, Avanzado"
-                    value={formData.experience}
-                    onChange={handleChange}
-                    required
-                    className="border-2 border-border bg-background/50 text-foreground focus:border-primary transition-colors"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="motivation"
-                    className="text-card-foreground font-bold uppercase text-xs tracking-wider"
-                  >
-                    ¿Por qué quieres participar? *
-                  </Label>
-                  <Textarea
-                    id="motivation"
-                    name="motivation"
-                    placeholder="Cuéntanos qué te motiva a unirte a Empanathon..."
-                    value={formData.motivation}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="border-2 border-border bg-background/50 text-foreground resize-none focus:border-primary transition-colors"
-                  />
-                </div>
+
                 <Button
                   type="submit"
                   className="pixel-corners w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-6 font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all"
@@ -153,22 +267,22 @@ export function RegistrationSection() {
             </CardContent>
           </Card>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <Card className="pixel-corners bg-primary/10 border-2 border-primary/40 hover:border-primary hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
+            <Card className="pixel-corners bg-purple-500/10 border-2 border-purple-500/40 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-primary pixel-text">2x6h</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Fases</div>
+                <div className="text-3xl font-bold text-purple-400 pixel-text">⚡</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Con IA</div>
               </CardContent>
             </Card>
-            <Card className="pixel-corners bg-secondary/10 border-2 border-secondary/40 hover:border-secondary hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
+            <Card className="pixel-corners bg-blue-500/10 border-2 border-blue-500/40 hover:border-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-secondary pixel-text">3-4</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Por Equipo</div>
+                <div className="text-3xl font-bold text-blue-400 pixel-text">💻</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Sin IA</div>
               </CardContent>
             </Card>
-            <Card className="pixel-corners bg-accent/10 border-2 border-accent/40 hover:border-accent hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+            <Card className="pixel-corners bg-green-500/10 border-2 border-green-500/40 hover:border-green-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-accent pixel-text">SaaS</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Enfoque</div>
+                <div className="text-3xl font-bold text-green-400 pixel-text">🎮</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">GameJam</div>
               </CardContent>
             </Card>
           </div>

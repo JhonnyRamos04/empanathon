@@ -1,6 +1,5 @@
 import { CountdownTimer } from "./countdown-timer"
 import { EmpanadaLogo } from "./empanada-logo"
-import Image from "next/image"
 
 export function HeroSection() {
   return (
@@ -13,21 +12,14 @@ export function HeroSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col items-center text-center">
           <div className="mb-8 animate-bounce-slow">
-            <Image
-              src="/empanada-pixel.png"
-              alt="Empanada Pixel Art"
-              width={200}
-              height={200}
-              className="pixelated drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-              style={{ imageRendering: "pixelated" }}
-            />
+            <EmpanadaLogo />
           </div>
           <h1 className="mb-4 text-4xl md:text-6xl lg:text-7xl font-bold text-balance text-foreground pixel-text leading-tight">
             EMPANATHON
-            <span className="block text-2xl md:text-4xl mt-4 text-primary">2025</span>
+            <span className="block text-2xl md:text-4xl mt-4 text-primary">Powered by UNEFA</span>
           </h1>
           <p className="mb-8 max-w-2xl text-lg md:text-xl text-muted-foreground text-balance">
-            Hackathon de innovación en 2 fases. Crea soluciones SaaS que transformen el futuro.
+            Hackathon de innovación en 2 fases. Crea soluciones en 3 formatos diferentes y demuestra tu talento.
           </p>
           <CountdownTimer />
           <div className="mt-12 flex flex-col sm:flex-row gap-4">

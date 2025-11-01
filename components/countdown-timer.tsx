@@ -12,7 +12,7 @@ interface TimeLeft {
 
 export function CountdownTimer() {
   // Set hackathon date to June 15, 2025
-  const hackathonDate = new Date("2025-06-15T09:00:00").getTime()
+  const hackathonDate = new Date("2025-11-21T09:00:00").getTime()
 
   const calculateTimeLeft = (): TimeLeft => {
     const now = new Date().getTime()

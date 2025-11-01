@@ -8,49 +8,49 @@ const blogPosts = [
     date: "15 de Enero, 2025",
     category: "Anuncio",
     excerpt:
-      "Hackathon de innovación en 2 fases enfocada en SaaS. Equipos de 3-4 personas competirán para crear soluciones que transformen el futuro.",
+      "Hackathon de innovación con 3 formatos distintos. Elige entre Desarrollo con IA, Desarrollo sin IA o GameJam. Equipos de 3-4 personas compitiendo por glory.",
     badge: "Nuevo",
   },
   {
     id: 2,
-    title: "Formato de 2 Fases Revelado",
+    title: "3 Formatos, 1 Pasión",
     date: "22 de Enero, 2025",
     category: "Formato",
     excerpt:
-      "Día 1: Fase de ideación y prototipo (6 horas). Día 2: Los finalistas implementan y presentan su solución final. ¡Prepárate para el desafío!",
+      "Desarrollo con IA (VibeConding), Desarrollo sin IA (SaaS Clásico) o GameJam. Cada formato tiene 6 horas para demostrar tu talento. ¡Elige el tuyo!",
     badge: "Importante",
   },
   {
     id: 3,
-    title: "Copa Artesanal en Progreso",
+    title: "Votación: Elige el Tema y la Problemática",
     date: "5 de Febrero, 2025",
-    category: "Premio",
+    category: "Votación",
     excerpt:
-      "Conoce la evolución de la creación de nuestra Copa Artesanal. El equipo ganador será reconocido como los mejores programadores de sistemas.",
+      "Los participantes votarán el tema del GameJam y la problemática para ambos tracks de SaaS. Tu voto cuenta. La democracia decide.",
   },
   {
     id: 4,
-    title: "Tema Secreto: ¿Qué Construirás?",
+    title: "VibeConding: Programación con IA",
     date: "18 de Febrero, 2025",
     category: "Desafío",
     excerpt:
-      "El tema se revelará al inicio del evento. Enfócate en SaaS, innovación y soluciones que impacten. ¡La creatividad será clave!",
+      "Construye aplicaciones SaaS potenciadas por IA. El VibeConding combina intuición, creatividad y tecnología. Sin límite de APIs externas de IA.",
   },
   {
     id: 5,
-    title: "Tips: Planeación Antes de Codificar",
+    title: "GameJam: 6 Horas, Infinitas Posibilidades",
     date: "3 de Marzo, 2025",
     category: "Recursos",
     excerpt:
-      "1 hora obligatoria de planificación sin teclado. Usa pizarras, papel y diagramas. La mejor estrategia gana, no solo el mejor código.",
+      "Crea un juego completo en 6 horas. Puedes usar IA o no. El tema se elige democráticamente. Desde 2D a 3D, todo es posible.",
   },
   {
     id: 6,
-    title: "Reglas y Criterios de Evaluación",
+    title: "Evaluación Multicategoría",
     date: "15 de Marzo, 2025",
     category: "Evaluación",
     excerpt:
-      "Creatividad e Innovación (40%), Impacto y Viabilidad (30%), Presentación y Pitch (30%). Prototipos en papel son válidos y valorados.",
+      "Cada formato se evalúa por separado con criterios específicos. Innovación (40%), Ejecución (30%), Presentación (30%). La mejor empanada gana.",
   },
 ]
 
