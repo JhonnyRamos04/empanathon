@@ -46,7 +46,7 @@ export function PhasesModule() {
     ]
 
     return (
-        <section id="fases" className="py-16 md:py-24 bg-gradient-to-b from-background to-background/50">
+        <section id="fases" className="py-16 md:py-24 bg-linear-to-b from-background to-background/50">
             <div className="container mx-auto px-4">
                 <h2 className="text-3xl md:text-4xl font-bold mb-16 text-primary uppercase tracking-wider pixel-text text-center">
                     &gt; Estructura de Fases
@@ -71,7 +71,7 @@ export function PhasesModule() {
                                     </div>
                                     <h3 className="text-lg md:text-xl font-bold text-foreground">{phase.title}</h3>
                                 </div>
-                                <div className="text-2xl font-bold text-primary group-hover:text-secondary transition-colors flex-shrink-0">
+                                <div className="text-2xl font-bold text-primary group-hover:text-secondary transition-colors shrink-0">
                                     {expandedPhase === index ? "▼" : "▶"}
                                 </div>
                             </button>

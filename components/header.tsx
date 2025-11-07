@@ -2,7 +2,7 @@ import { EmpanadaLogo } from "./empanada-logo"
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b-2 border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+    <header className="sticky top-0 z-50 w-full border-b-2 border-border/60 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <EmpanadaLogo />

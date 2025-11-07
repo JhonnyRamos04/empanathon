@@ -16,7 +16,6 @@ export default function Home() {
       <WhatIsHackathon />
       <PhasesModule />
       <FormatsSection />
-      <VotingModule />
       <BlogSection />
       <RegistrationSection />
       <Footer />

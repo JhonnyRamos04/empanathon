@@ -73,9 +73,9 @@ export function RegistrationSection() {
   return (
     <section
       id="inscripcion"
-      className="py-20 md:py-32 bg-gradient-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
+      className="py-20 md:py-32 bg-linear-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-[size:60px_60px] animate-pulse" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-size-[60px_60px] animate-pulse" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-12 text-center">
@@ -88,7 +88,7 @@ export function RegistrationSection() {
         </div>
         <div className="max-w-4xl mx-auto">
           <Card className="pixel-corners border-2 border-primary/40 bg-card/90 backdrop-blur shadow-[0_0_40px_rgba(168,85,247,0.2)]">
-            <CardHeader className="bg-gradient-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
+            <CardHeader className="bg-linear-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
               <CardTitle className="text-xl md:text-2xl text-card-foreground uppercase tracking-wide">
                 &gt; Formulario de Inscripción_
               </CardTitle>
@@ -266,26 +266,7 @@ export function RegistrationSection() {
               </form>
             </CardContent>
           </Card>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <Card className="pixel-corners bg-purple-500/10 border-2 border-purple-500/40 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-purple-400 pixel-text">⚡</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Con IA</div>
-              </CardContent>
-            </Card>
-            <Card className="pixel-corners bg-blue-500/10 border-2 border-blue-500/40 hover:border-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-blue-400 pixel-text">💻</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Sin IA</div>
-              </CardContent>
-            </Card>
-            <Card className="pixel-corners bg-green-500/10 border-2 border-green-500/40 hover:border-green-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-green-400 pixel-text">🎮</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">GameJam</div>
-              </CardContent>
-            </Card>
-          </div>
+          
         </div>
       </div>
     </section>
