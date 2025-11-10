@@ -3,12 +3,12 @@ import Image from "next/image"
 export function EmpanadaLogo() {
   return (
     <div className="relative">
-      <div className="relative w-16 h-16 md:w-20 md:h-20">
+      <div className="">
         <Image
           src="/empanada-pixel.png"
           alt="Empanada Pixel Art"
-          width={80}
-          height={80}
+          width={120}
+          height={120}
           className="pixelated drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
           style={{ imageRendering: "pixelated" }}
         />

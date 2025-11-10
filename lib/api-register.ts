@@ -16,8 +16,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_TEAMS_URL || "https://api-empanathon
 
 export async function registerTeam(data: TeamRegistrationData) {
   try {
-    console.log("[v0] Sending registration payload:", JSON.stringify(data, null, 2))
-
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -25,10 +23,7 @@ export async function registerTeam(data: TeamRegistrationData) {
       },
       body: JSON.stringify(data),
     })
-
     const responseText = await response.text()
-    console.log("[v0] API Response status:", response.status)
-    console.log("[v0] API Response body:", responseText)
 
     if (!response.ok) {
       let errorMessage = `Error ${response.status}: ${response.statusText}`
@@ -42,7 +37,6 @@ export async function registerTeam(data: TeamRegistrationData) {
     }
 
     const result = JSON.parse(responseText)
-    console.log("[v0] Registration success:", result)
     return { success: true, data: result }
   } catch (error) {
     console.error("[v0] Registration error:", error)

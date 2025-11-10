@@ -1,18 +1,32 @@
 import { CountdownTimer } from "./countdown-timer"
 import { EmpanadaLogo } from "./empanada-logo"
+import Image from "next/image"
 
 export function HeroSection() {
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary/20 py-20 md:py-32"
+      className="relative overflow-hidden bg-linear-to-br from-primary/20 via-background to-secondary/20 py-20 md:py-32"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-size-[50px_50px] mask-[radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col items-center text-center">
           <div className="mb-8 animate-bounce-slow">
-            <EmpanadaLogo />
+            <div className="relative">
+                  <div className="">
+                    <Image
+                      src="/empanada-pixel.png"
+                      alt="Empanada Pixel Art"
+                      width={320  }
+                      height={320}
+                      className="pixelated drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+                      style={{ imageRendering: "pixelated" }}
+                    />
+                  </div>
+                  {/* Glowing effect for retro gaming aesthetic */}
+                  <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+                </div>
           </div>
           <h1 className="mb-4 text-4xl md:text-6xl lg:text-7xl font-bold text-balance text-foreground pixel-text leading-tight">
             EMPANATHON

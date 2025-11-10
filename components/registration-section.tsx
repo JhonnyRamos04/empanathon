@@ -64,7 +64,6 @@ export function RegistrationSection() {
       })),
     }
 
-    console.log("[v0] About to submit payload:", payload)
     const result = await registerTeam(payload)
 
     if (result.success) {
@@ -312,7 +311,7 @@ export function RegistrationSection() {
                   disabled={isLoading}
                   className="pixel-corners w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-6 font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? "&gt; Registrando..." : "&gt; Enviar Inscripción_"}
+                  {isLoading ? "Registrando..." : "Enviar Inscripción_"}
                 </Button>
               </form>
             </CardContent>

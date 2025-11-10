@@ -15,7 +15,9 @@ const _pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   title: "Empanathon 2025 - Hackathon de Innovación",
   description: "Hackathon de 2 fases enfocada en SaaS e innovación tecnológica",
-  generator: "v0.app",
+  icons: {
+    icon: "/empanada-pixel.png",
+  },
 }
 
 export default function RootLayout({
