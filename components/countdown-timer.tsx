@@ -11,7 +11,6 @@ interface TimeLeft {
 }
 
 export function CountdownTimer() {
-  // Set hackathon date to June 15, 2025
   const hackathonDate = new Date("2025-11-21T09:00:00").getTime()
 
   const calculateTimeLeft = (): TimeLeft => {
@@ -30,15 +29,39 @@ export function CountdownTimer() {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 }
   }
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft())
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
+    setTimeLeft(calculateTimeLeft())
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
 
     return () => clearInterval(timer)
   }, [])
+
+  if (!isClient || !timeLeft) {
+    return (
+      <div className="w-full max-w-3xl">
+        <h3 className="mb-6 text-xl md:text-2xl font-bold text-foreground uppercase tracking-wider">
+          &gt; Fase 1 comienza en:
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[0, 1, 2, 3].map((i) => (
+            <Card key={i} className="pixel-corners bg-card/80 backdrop-blur border-2 border-primary/40 p-6 text-center">
+              <div className="text-4xl md:text-5xl font-bold text-primary pixel-text">--</div>
+              <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                {["DÍAS", "HORAS", "MIN", "SEG"][i]}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="w-full max-w-3xl">

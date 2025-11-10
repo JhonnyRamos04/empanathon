@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { registerTeam } from "@/lib/api-register"
 
 interface Student {
   firstName: string
@@ -18,7 +19,7 @@ export function RegistrationSection() {
     teamName: "",
     carrera: "",
     semestre: "",
-    format: "with-ai",
+    formata: "with-ai",
     students: [
       { firstName: "", lastName: "", cedula: "" },
       { firstName: "", lastName: "", cedula: "" },
@@ -27,31 +28,69 @@ export function RegistrationSection() {
     ],
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const filledStudents = formData.students.filter((s) => s.firstName && s.lastName && s.cedula)
     if (filledStudents.length < 3) {
-      alert("Por favor, completa al menos 3 estudiantes.")
+      setSubmitMessage({ type: "error", text: "Por favor, completa al menos 3 estudiantes." })
       return
     }
     if (!formData.teamName || !formData.carrera || !formData.semestre) {
-      alert("Por favor, completa todos los campos del equipo.")
+      setSubmitMessage({ type: "error", text: "Por favor, completa todos los campos del equipo." })
       return
     }
-    console.log("Form submitted:", formData)
-    alert("¡Gracias por inscribirte! Te contactaremos pronto.")
-    setFormData({
-      teamName: "",
-      carrera: "",
-      semestre: "",
-      format: "with-ai",
-      students: [
-        { firstName: "", lastName: "", cedula: "" },
-        { firstName: "", lastName: "", cedula: "" },
-        { firstName: "", lastName: "", cedula: "" },
-        { firstName: "", lastName: "", cedula: "" },
-      ],
-    })
+
+    setIsLoading(true)
+    setSubmitMessage(null)
+
+    const formatMap: { [key: string]: string } = {
+      "with-ai": "with-ai",
+      "without-ai": "without-ai",
+      gamejam: "gamejam",
+    }
+
+    const payload = {
+      teamName: formData.teamName.trim(),
+      career: formData.carrera.trim(),
+      semester: String(formData.semestre),
+      formata: formatMap[formData.formata],
+      students: filledStudents.map((s) => ({
+        firstName: s.firstName.trim(),
+        lastName: s.lastName.trim(),
+        idCardNumber: s.cedula.trim(),
+      })),
+    }
+
+    console.log("[v0] About to submit payload:", payload)
+    const result = await registerTeam(payload)
+
+    if (result.success) {
+      setSubmitMessage({
+        type: "success",
+        text: "¡Equipo registrado exitosamente! Nos vemos en Empanathon.",
+      })
+      setFormData({
+        teamName: "",
+        carrera: "",
+        semestre: "",
+        formata: "with-ai",
+        students: [
+          { firstName: "", lastName: "", cedula: "" },
+          { firstName: "", lastName: "", cedula: "" },
+          { firstName: "", lastName: "", cedula: "" },
+          { firstName: "", lastName: "", cedula: "" },
+        ],
+      })
+    } else {
+      setSubmitMessage({
+        type: "error",
+        text: `Error al registrar: ${result.error}`,
+      })
+    }
+    setIsLoading(false)
   }
 
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -73,9 +112,9 @@ export function RegistrationSection() {
   return (
     <section
       id="inscripcion"
-      className="py-20 md:py-32 bg-linear-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
+      className="py-20 md:py-32 bg-gradient-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-size-[60px_60px] animate-pulse" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-[size:60px_60px] animate-pulse" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-12 text-center">
@@ -88,7 +127,7 @@ export function RegistrationSection() {
         </div>
         <div className="max-w-4xl mx-auto">
           <Card className="pixel-corners border-2 border-primary/40 bg-card/90 backdrop-blur shadow-[0_0_40px_rgba(168,85,247,0.2)]">
-            <CardHeader className="bg-linear-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
+            <CardHeader className="bg-gradient-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
               <CardTitle className="text-xl md:text-2xl text-card-foreground uppercase tracking-wide">
                 &gt; Formulario de Inscripción_
               </CardTitle>
@@ -97,6 +136,17 @@ export function RegistrationSection() {
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
+              {submitMessage && (
+                <div
+                  className={`mb-6 p-4 border-2 rounded-sm text-sm font-bold uppercase tracking-wider ${
+                    submitMessage.type === "success"
+                      ? "bg-green-500/10 border-green-500/50 text-green-400"
+                      : "bg-red-500/10 border-red-500/50 text-red-400"
+                  }`}
+                >
+                  {submitMessage.text}
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Team Information */}
                 <div className="space-y-4 pb-6 border-b-2 border-border/30">
@@ -131,7 +181,7 @@ export function RegistrationSection() {
                       <select
                         id="format"
                         name="format"
-                        value={formData.format}
+                        value={formData.formata}
                         onChange={handleTeamChange}
                         required
                         className="w-full border-2 border-border bg-background/50 text-foreground px-4 py-2 rounded-sm focus:border-primary transition-colors focus:outline-none focus:ring-0 cursor-pointer pixel-corners"
@@ -259,14 +309,34 @@ export function RegistrationSection() {
 
                 <Button
                   type="submit"
-                  className="pixel-corners w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-6 font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all"
+                  disabled={isLoading}
+                  className="pixel-corners w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg py-6 font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  &gt; Enviar Inscripción_
+                  {isLoading ? "&gt; Registrando..." : "&gt; Enviar Inscripción_"}
                 </Button>
               </form>
             </CardContent>
           </Card>
-          
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <Card className="pixel-corners bg-purple-500/10 border-2 border-purple-500/40 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
+              <CardContent className="pt-6 text-center">
+                <div className="text-3xl font-bold text-purple-400 pixel-text">⚡</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Con IA</div>
+              </CardContent>
+            </Card>
+            <Card className="pixel-corners bg-blue-500/10 border-2 border-blue-500/40 hover:border-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
+              <CardContent className="pt-6 text-center">
+                <div className="text-3xl font-bold text-blue-400 pixel-text">💻</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Sin IA</div>
+              </CardContent>
+            </Card>
+            <Card className="pixel-corners bg-green-500/10 border-2 border-green-500/40 hover:border-green-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+              <CardContent className="pt-6 text-center">
+                <div className="text-3xl font-bold text-green-400 pixel-text">🎮</div>
+                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">GameJam</div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
