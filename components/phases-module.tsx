@@ -5,6 +5,10 @@ import { useState } from "react"
 export function PhasesModule() {
     const [expandedPhase, setExpandedPhase] = useState<number | null>(0)
 
+    const eggtheme = () => {
+        console.log()
+    }
+
     const phases = [
         {
             id: 1,

@@ -111,9 +111,9 @@ export function RegistrationSection() {
   return (
     <section
       id="inscripcion"
-      className="py-20 md:py-32 bg-gradient-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
+      className="py-20 md:py-32 bg-linear-to-br from-primary/10 via-background to-secondary/10 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-[size:60px_60px] animate-pulse" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.05)_2px,transparent_2px),linear-gradient(90deg,rgba(168,85,247,0.05)_2px,transparent_2px)] bg-size-[60px_60px] animate-pulse" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-12 text-center">
@@ -126,7 +126,7 @@ export function RegistrationSection() {
         </div>
         <div className="max-w-4xl mx-auto">
           <Card className="pixel-corners border-2 border-primary/40 bg-card/90 backdrop-blur shadow-[0_0_40px_rgba(168,85,247,0.2)]">
-            <CardHeader className="bg-gradient-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
+            <CardHeader className="bg-linear-to-r from-primary/20 to-secondary/20 border-b-2 border-border">
               <CardTitle className="text-xl md:text-2xl text-card-foreground uppercase tracking-wide">
                 &gt; Formulario de Inscripción_
               </CardTitle>
@@ -163,6 +163,8 @@ export function RegistrationSection() {
                       <Input
                         id="teamName"
                         name="teamName"
+                        max={60}
+                        maxLength={60}
                         placeholder="Los Innovadores"
                         value={formData.teamName}
                         onChange={handleTeamChange}
@@ -202,7 +204,9 @@ export function RegistrationSection() {
                       <Input
                         id="carrera"
                         name="carrera"
-                        placeholder="Ingeniería en Informática"
+                        max={60}
+                        maxLength={40}
+                        placeholder="Ingeniería De Sistemas"
                         value={formData.carrera}
                         onChange={handleTeamChange}
                         required
@@ -262,6 +266,8 @@ export function RegistrationSection() {
                             <Input
                               id={`firstName-${index}`}
                               placeholder="Juan"
+                              max={25}
+                              maxLength={40}
                               value={student.firstName}
                               onChange={(e) => handleStudentChange(index, "firstName", e.target.value)}
                               required={index < 3}
@@ -278,6 +284,8 @@ export function RegistrationSection() {
                             <Input
                               id={`lastName-${index}`}
                               placeholder="Pérez"
+                              max={25}
+                              maxLength={40}
                               value={student.lastName}
                               onChange={(e) => handleStudentChange(index, "lastName", e.target.value)}
                               required={index < 3}
@@ -293,8 +301,10 @@ export function RegistrationSection() {
                             </Label>
                             <Input
                               id={`cedula-${index}`}
-                              placeholder="12345678"
+                              placeholder="30100200"
                               value={student.cedula}
+                              max={9}
+                              maxLength={9}
                               onChange={(e) => handleStudentChange(index, "cedula", e.target.value)}
                               required={index < 3}
                               className="border-2 border-border bg-background/50 text-foreground focus:border-secondary transition-colors"
