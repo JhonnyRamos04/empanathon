@@ -28,7 +28,7 @@ const formats = [
         title: "GameJam",
         subtitle: "Juego de 6 Horas",
         description:
-            "Crea un juego completo en 6 horas. Pueden usar IA o no. El tema se votará democraticamente entre todos los participantes.",
+            "Crea un juego completo en 6 horas. Pueden usar IA o no. El tema se revelara el dia de la hackathon.",
         color: "from-green-500/20 to-emerald-500/20",
         borderColor: "border-green-500/40",
         accentColor: "text-green-400",
