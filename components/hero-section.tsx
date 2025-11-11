@@ -18,7 +18,7 @@ export function HeroSection() {
                     <Image
                       src="/empanada-pixel.png"
                       alt="Empanada Pixel Art"
-                      width={320  }
+                      width={320}
                       height={320}
                       className="pixelated drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
                       style={{ imageRendering: "pixelated" }}

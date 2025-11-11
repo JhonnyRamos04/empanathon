@@ -316,26 +316,6 @@ export function RegistrationSection() {
               </form>
             </CardContent>
           </Card>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <Card className="pixel-corners bg-purple-500/10 border-2 border-purple-500/40 hover:border-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-purple-400 pixel-text">⚡</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Con IA</div>
-              </CardContent>
-            </Card>
-            <Card className="pixel-corners bg-blue-500/10 border-2 border-blue-500/40 hover:border-blue-500 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-blue-400 pixel-text">💻</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">Sin IA</div>
-              </CardContent>
-            </Card>
-            <Card className="pixel-corners bg-green-500/10 border-2 border-green-500/40 hover:border-green-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
-              <CardContent className="pt-6 text-center">
-                <div className="text-3xl font-bold text-green-400 pixel-text">🎮</div>
-                <div className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">GameJam</div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </section>
